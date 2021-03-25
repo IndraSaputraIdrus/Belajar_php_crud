@@ -35,7 +35,7 @@ $no = 1;
                 <!-- arahkan ke halaman detail & kirim kan id ke url -->
                 <a href="detail_siswa.php?id=<?= $student['id']; ?>" class="badge badge-success">detail</a>
                 <a href="" class="badge badge-primary">edit</a>
-                <a href="" class="badge badge-danger">hapus</a>
+                <a href="hapus_siswa.php?id=<?= $student['id']; ?>" class="badge badge-danger" onclick="return confirm('Yakin?')">hapus</a>
               </div>
             </li>
 

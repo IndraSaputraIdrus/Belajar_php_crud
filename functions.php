@@ -76,3 +76,17 @@ function tambah($data)
 
   return mysqli_affected_rows($conn);
 }
+
+// function hapus
+function hapus($id)
+{
+  $conn = koneksi();
+
+  // query hapus
+  $query = "DELETE FROM `siswa` WHERE `id` = ?";
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, 'i', $id);
+  mysqli_stmt_execute($stmt);
+
+  return mysqli_affected_rows($conn);
+}
