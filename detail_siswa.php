@@ -4,10 +4,11 @@
 require_once 'functions.php';
 
 // ambil id dari url
-$id = intval($_GET["id"]);
+$id = $_GET['id'];
 
 // query data berdasarkan id
-$student = query("SELECT * FROM siswa WHERE id = $id");
+$student = queryById($id);
+
 ?>
 
 <?php include 'asset/templates/header.php'; ?>

@@ -4,7 +4,7 @@
 require_once 'functions.php';
 
 // panggil function query
-$students = query("SELECT * FROM siswa");
+$students = queryAllSiswa();
 $no = 1;
 ?>
 
