@@ -53,3 +53,26 @@ function queryById($id)
     return mysqli_fetch_assoc($result);
   }
 }
+
+// function tambah data
+function tambah($data)
+{
+  $conn = koneksi();
+
+  $nama = $data['nama'];
+  $no_urut = $data['no_urut'];
+  $email = $data['email'];
+  $jurusan = $data['jurusan'];
+  $jenis_kelamin = $data['jenis_kelamin'];
+  $gambar = $data['gambar'];
+
+  // query insert 
+  $query = "INSERT INTO `siswa` (`nama`, `no_urut`, `email`, `jurusan`, `jenis_kelamin`, `gambar`) VALUES (?,?,?,?,?,?);";
+
+  // prepared statement (dengan cara yg sedikit berbeda dari script yg diatas
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, 'sissss', $nama, $no_urut, $email, $jurusan, $jenis_kelamin, $gambar);
+  mysqli_stmt_execute($stmt);
+
+  return mysqli_affected_rows($conn);
+}

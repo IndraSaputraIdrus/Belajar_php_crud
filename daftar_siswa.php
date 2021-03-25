@@ -13,6 +13,12 @@ $no = 1;
 <div class="container">
 
   <div class="row my-3">
+    <div class="col-md-3">
+      <a href="tambah_siswa.php" class="btn btn-primary btn-block">Tambah data</a>
+    </div>
+  </div>
+
+  <div class="row my-3">
     <div class="col-md-6">
       <h3>Daftar siswa</h3>
 
