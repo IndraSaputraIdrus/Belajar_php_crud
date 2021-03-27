@@ -90,3 +90,57 @@ function hapus($id)
 
   return mysqli_affected_rows($conn);
 }
+
+function ubah($data)
+{
+  $conn = koneksi();
+
+  $id = htmlspecialchars($data['id']);
+  $nama = htmlspecialchars($data['nama']);
+  $no_urut = htmlspecialchars($data['no_urut']);
+  $email = htmlspecialchars($data['email']);
+  $jurusan = htmlspecialchars($data['jurusan']);
+  $jenis_kelamin = htmlspecialchars($data['jenis_kelamin']);
+  $gambar = $data['gambar'];
+
+  // query insert 
+  $query = "UPDATE `siswa` SET 
+              `nama` = ?,
+              `no_urut` = ?,
+              `email` = ?,
+              `jurusan` = ?,
+              `jenis_kelamin` = ?,
+              `gambar` = ?
+            WHERE `id` = ?;
+           ";
+
+  // prepared statement (dengan cara yg sedikit berbeda dari script yg diatas
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, 'sissssi', $nama, $no_urut, $email, $jurusan, $jenis_kelamin, $gambar, $id);
+  mysqli_stmt_execute($stmt);
+
+  return mysqli_affected_rows($conn);
+}
+
+function cari($keyword)
+{
+  $conn = koneksi();
+
+  $param = "%$keyword%";
+
+  $query = "SELECT * FROM `siswa` WHERE 
+            `nama` LIKE ? OR
+            `email` LIKE ? OR
+            `jurusan` LIKE ?
+           ";
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, 'sss', $param, $param, $param);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  $rows = [];
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;
+  }
+  return $rows;
+}
