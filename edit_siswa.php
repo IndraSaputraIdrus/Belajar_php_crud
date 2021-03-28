@@ -87,7 +87,7 @@ if (isset($_POST['ubah'])) {
             <input type="hidden" name="gambar" value="<?= $student['gambar']; ?>">
             <button type="submit" name="ubah" class="btn btn-primary btn-block">Ubah data!</button>
 
-            <a href="daftar_siswa.php" class="btn btn-danger btn-block">Kembali!</a>
+            <a href="daftar_siswa.php" class="btn btn-danger btn-block" onclick="return confirm('yakin?')">Kembali!</a>
           </form>
         </div>
       </div>

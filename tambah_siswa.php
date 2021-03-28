@@ -2,6 +2,8 @@
 
 require 'functions.php';
 
+$conn = koneksi();
+
 if (isset($_POST['tambah'])) {
   if (tambah($_POST) > 0) {
     echo '<script>
@@ -9,10 +11,12 @@ if (isset($_POST['tambah'])) {
             document.location.href = "daftar_siswa.php";
           </script>';
   } else {
-    echo '<script>
-            alert("Data gagal ditambahkan");
-            document.location.href = "daftar_siswa.php";
-          </script>';
+    // echo '<script>
+    //         alert("Data gagal ditambahkan");
+    //         document.location.href = "daftar_siswa.php";
+    //       </script>';
+    echo 'gagal';
+    echo mysqli_error($conn);
   }
 }
 
@@ -30,7 +34,7 @@ if (isset($_POST['tambah'])) {
           Form tambah data
         </div>
         <div class="card-body">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
               <label for="nama">Nama :</label>
@@ -75,8 +79,12 @@ if (isset($_POST['tambah'])) {
               </div>
             </div>
 
-            <input type="hidden" name="gambar" value="default.png">
-            <button type="submit" name="tambah" class="btn btn-primary btn-block">Tambah data!</button>
+            <div class="form-group">
+              <label for="gambar">Gambar :</label>
+              <input type="file" class="form-control-file" id="gambar" name="gambar">
+            </div>
+            <button type="submit" name="tambah" class="btn btn-primary btn-block mt-4">Tambah data!</button>
+            <a href="daftar_siswa.php" class="btn btn-danger btn-block" onclick="return confirm('yakin?')">Kembali!</a>
 
           </form>
         </div>
