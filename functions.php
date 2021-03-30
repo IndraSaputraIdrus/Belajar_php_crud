@@ -65,10 +65,10 @@ function upload()
 
   // ketika tidak ada gambar yang diupload
   if ($error == 4) {
-    echo '<script>
-            alert("Pilih gambar terlebih dahulu!");
-          </script>';
-    return false;
+    // echo '<script>
+    //         alert("Pilih gambar terlebih dahulu!");
+    //       </script>';
+    return 'default.png';
   }
 
   // cek ekstensi gambar
@@ -145,6 +145,16 @@ function hapus($id)
 {
   $conn = koneksi();
 
+  // hapus gambar
+  $student = queryById($id);
+
+  $imageUrl = "asset/img/" . $student['gambar'];
+  if ($student['gambar'] != 'default.png') {
+    if (file_exists($imageUrl)) {
+      unlink($imageUrl);
+    }
+  }
+
   // query hapus
   $query = "DELETE FROM `siswa` WHERE `id` = ?";
   $stmt = mysqli_prepare($conn, $query);
@@ -164,9 +174,31 @@ function ubah($data)
   $email = htmlspecialchars($data['email']);
   $jurusan = htmlspecialchars($data['jurusan']);
   $jenis_kelamin = htmlspecialchars($data['jenis_kelamin']);
-  $gambar = $data['gambar'];
+  $gambar_lama = htmlspecialchars($data['gambar_lama']);
 
-  // query insert 
+  $gambar = upload();
+
+  if (!$gambar) {
+    return false;
+  }
+
+  // cek apakah gambar diganti atau tidak
+  // jika user tidak memilih gambar / tidak diubah
+  if ($_FILES['gambar']['error'] == 4) {
+    // jika gambar tidak diganti
+    $gambar = $gambar_lama;
+  } else {
+    // jika gambar diganti
+    $student = queryById($id);
+    $imageUrl = 'asset/img/' . $student['gambar'];
+
+    // hapus gambar lama
+    if (file_exists($imageUrl)) {
+      unlink($imageUrl);
+    }
+  }
+
+  // query update 
   $query = "UPDATE `siswa` SET 
               `nama` = ?,
               `no_urut` = ?,

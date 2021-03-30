@@ -34,7 +34,7 @@ if (isset($_POST['ubah'])) {
           Form ubah data
         </div>
         <div class="card-body">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $student['id']; ?>">
             <div class="form-group">
               <label for="nama">Nama :</label>
@@ -76,7 +76,7 @@ if (isset($_POST['ubah'])) {
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input <?= $student['jenis_kelamin'] == 'P' ? 'checked' : ''; ?> class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="P">
+                  <input <?= $student['jenis_kelamin'] == 'P' ? 'checked' : ''; ?> class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="P">
                   <label class="form-check-label" for="jenis_kelamin2">
                     Perempuan
                   </label>
@@ -84,7 +84,12 @@ if (isset($_POST['ubah'])) {
               </div>
             </div>
 
-            <input type="hidden" name="gambar" value="<?= $student['gambar']; ?>">
+            <input type="hidden" name="gambar_lama" value="<?= $student['gambar']; ?>">
+            <div class="form-group">
+              <label for="gambar">Gambar :</label>
+              <img src="asset/img/<?= $student['gambar']; ?>" alt="profile" class="img-thumbnail d-block mb-3 mx-auto imagePreview" onchange="previewImage()" style="width: 200px; height: 200px;">
+              <input type="file" class="form-control-file gambar" id="gambar" name="gambar" onchange="previewImage()">
+            </div>
             <button type="submit" name="ubah" class="btn btn-primary btn-block">Ubah data!</button>
 
             <a href="daftar_siswa.php" class="btn btn-danger btn-block" onclick="return confirm('yakin?')">Kembali!</a>

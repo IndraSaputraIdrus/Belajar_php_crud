@@ -78,7 +78,7 @@ $student = queryById($id);
                 <h3 class="mx-3">:</h3>
               </td>
               <td>
-                <h3><?= $student['jenis_kelamin']; ?></h3>
+                <h3><?= $student['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan'; ?></h3>
               </td>
             </tr>
           </table>
